@@ -1,7 +1,7 @@
 {
  "variables": {
-	"triton_east_1": "us-east-1",
-	"triton_east_2": "us-east-2",
+    "triton_east_1": "us-east-1",
+    "triton_east_2": "us-east-2",
     "triton_east_3": "us-east-3",
     "triton_west": "us-west-1",
     "triton_sw": "us-sw-1",
