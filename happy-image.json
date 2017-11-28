@@ -1,17 +1,13 @@
 {
  "variables": {
-    "triton_east_1": "us-east-1",
-    "triton_east_2": "us-east-2",
-    "triton_east_3": "us-east-3",
-    "triton_west": "us-west-1",
-    "triton_sw": "us-sw-1",
+    "triton_url": "{{env `SDC_URL`}}",
     "triton_account": "{{env `SDC_ACCOUNT`}}",
     "triton_key_id": "{{env `SDC_KEY_ID`}}"
   },
   "builders": [
     {
       "type": "triton",
-      "triton_url": "https://{{user `triton_west`}}.api.joyent.com",
+      "triton_url": "{{user `triton_url`}}",
       "triton_account": "{{user `triton_account`}}",
       "triton_key_id": "{{user `triton_key_id`}}",
       
@@ -19,11 +15,13 @@
       "source_machine_package": "g4-highcpu-128M",
       "source_machine_image": "88cf77e4-1958-11e7-bda8-777cc817ade5",
 
+      "ssh_username": "root",
+
       "image_name": "happy_randomizer",
       "image_version": "1.0.0",
       "image_tags": {
-            "Project": "Happy-Randomizer"
-        }
+          "Project": "Happy-Randomizer"
+      }
     }
   ],
   "provisioners": [
