@@ -24,7 +24,8 @@ Read my post for Joyent on [creating custom infrastructure images](https://www.j
 There is an alternative JSON file, [thumbsup.json](https://github.com/heyawhite/happy-randomizer/blob/master/resources/thumbsup.json), which uses only thumbs up GIFs. To create another version of a Packer image which uses that JSON file:
 
 1. Edit [main.js](https://github.com/heyawhite/happy-randomizer/blob/master/js/main.js) so that the `url` is equal to `"./resources/thumbsup.json"`.
-1. Edit [the Packer configuration](https://github.com/heyawhite/happy-randomizer/blob/master/happy-image.json) to change the `image_version` to 1.1.0.
+1. Edit the single data center [Packer configuration file](https://github.com/heyawhite/happy-randomizer/blob/master/happy-image.json) to change the `image_version` to 1.1.0.
+   + If deploying to multiple data centers, use that [Packer configuration file](https://github.com/heyawhite/happy-randomizer/blob/master/happy-image-dcs.json) and update the `image_version` in each builder.
 1. Repeat the instructions for [building an image](https://www.joyent.com/blog/create-images-with-packer#build-the-image)
 
 ### Deploying to multiple data centers
