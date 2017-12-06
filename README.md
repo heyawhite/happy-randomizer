@@ -1,5 +1,6 @@
 # happy-randomizer
-Make your colleagues, friends, and family happy. Tell them how great they are. This is a web application built with a Packer config file.
+
+Make your colleagues, friends, and family happy. Tell them how great they are. This is a web application built with a Packer config file for [Triton](https://www.packer.io/docs/builders/triton.html).
 
 Check out a [live demo](http://happy.alexandra.space/).
 
@@ -11,7 +12,8 @@ This application is a website which randomizes inspirational quotes and GIFs at 
 + JSON file grouping quotes and GIFs
 + CSS stylesheet
 + jQuery for swapping the quotes and GIFs
-+ Packer file to build an image on [Triton](https://www.packer.io/docs/builders/triton.html)
++ Packer file to build an image on a single Triton data center
++ Packer file to build an image on multiple Triton data centers
 
 ## Create a Packer image with Triton
 
@@ -24,3 +26,42 @@ There is an alternative JSON file, [thumbsup.json](https://github.com/heyawhite/
 1. Edit [main.js](https://github.com/heyawhite/happy-randomizer/blob/master/js/main.js) so that the `url` is equal to `"./resources/thumbsup.json"`.
 1. Edit [the Packer configuration](https://github.com/heyawhite/happy-randomizer/blob/master/happy-image.json) to change the `image_version` to 1.1.0.
 1. Repeat the instructions for [building an image](https://www.joyent.com/blog/create-images-with-packer#build-the-image)
+
+### Deploying to multiple data centers
+
+It is possible to deploy your image to multiple data centers at the same time. This requires naming your builder with `"name"` and updating the `"triton_url"`.
+
+In the below example, I'm using a variable for the `us-east-1` and `us-east-2` data centers, both as the name of the builder and as a part of the Triton URL.
+
+```hc1
+"variables": {
+    "triton_dc_east1": "us-east-1",
+    "triton_dc_east2": "us-east-2",
+    "triton_account": "{{env `SDC_ACCOUNT`}}",
+    "triton_key_id": "{{env `SDC_KEY_ID`}}"
+},
+"builders": [
+    {
+      "name": "{{user `triton_dc_east1`}}",
+      "type": "triton",
+      "triton_url": "https://{{user `triton_dc_east1`}}.api.joyent.com",
+      "triton_account": "{{user `triton_account`}}",
+      "triton_key_id": "{{user `triton_key_id`}}",
+      
+      [...]
+    },
+    {
+      "name": "{{user `triton_dc_east2`}}",
+      "type": "triton",
+      "triton_url": "https://{{user `triton_dc_east2`}}.api.joyent.com",
+      "triton_account": "{{user `triton_account`}}",
+      "triton_key_id": "{{user `triton_key_id`}}",
+      
+      "ssh_username": "root",
+      
+      [...]
+    }
+],
+```
+
+Check out the [Packer file for multiple DCs](https://github.com/heyawhite/happy-randomizer/blob/master/happy-image-dcs.json), which includes all of our available data centers.
