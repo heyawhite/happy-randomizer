@@ -1,0 +1,8 @@
+
+*.tfstate
+
+*.backup
+
+*.0_x4
+
+tf-bluegreen/.terraform/plugins/darwin_amd64/lock.json
