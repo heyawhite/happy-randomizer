@@ -2,7 +2,7 @@
 
 Make your colleagues, friends, and family happy. Tell them how great they are. This is a web application built with a Packer config file for [Triton](https://www.packer.io/docs/builders/triton.html).
 
-Check out a [live demo](http://happy.alexandra.space/).
+Check out a [live demo](http://alexandra.space/).
 
 ## What's included
 
